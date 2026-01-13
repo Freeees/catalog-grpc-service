@@ -7,6 +7,8 @@ using Polly.Extensions.Http;
 using Polly.Timeout;
 using CatalogService.Grpc.Contracts.V1;
 using Grpc.Core;
+using Grpc.Net.ClientFactory;
+
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureLogging(logging =>
@@ -29,12 +31,21 @@ var host = Host.CreateDefaultBuilder(args)
         var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2));
 
         services
-            .AddGrpcClient<CatalogApi.CatalogApiClient>(o =>
+            .AddGrpcClient<CatalogApi.CatalogApiClient>("CatalogApiClientV1", o =>
             {
                 o.Address = new Uri(grpcAddress);
             })
             .AddPolicyHandler(retryPolicy)
             .AddPolicyHandler(timeoutPolicy);
+
+        services
+            .AddGrpcClient<CatalogService.Grpc.Contracts.V2.CatalogApi.CatalogApiClient>("CatalogApiClientV2", o =>
+            {
+                o.Address = new Uri(grpcAddress);
+            })
+            .AddPolicyHandler(retryPolicy)
+            .AddPolicyHandler(timeoutPolicy);
+
 
         services.AddTransient<App>();
     })
@@ -44,23 +55,34 @@ await host.Services.GetRequiredService<App>().RunAsync();
 
 public sealed class App
 {
-    private readonly CatalogApi.CatalogApiClient _client;
+    private readonly CatalogApi.CatalogApiClient _clientV1;
+    private readonly CatalogService.Grpc.Contracts.V2.CatalogApi.CatalogApiClient _clientV2;
     private readonly ILogger<App> _logger;
 
-    public App(CatalogApi.CatalogApiClient client, ILogger<App> logger)
+    public App(GrpcClientFactory grpcClientFactory, ILogger<App> logger)
     {
-        _client = client;
+        _clientV1 = grpcClientFactory.CreateClient<CatalogApi.CatalogApiClient>("CatalogApiClientV1");
+        _clientV2 = grpcClientFactory.CreateClient<CatalogService.Grpc.Contracts.V2.CatalogApi.CatalogApiClient>("CatalogApiClientV2");
         _logger = logger;
     }
 
     public async Task RunAsync()
     {
         _logger.LogInformation("1) Ping...");
-        var reply = await _client.PingAsync(new PingRequest { Message = "hello from client" });
+        var reply = await _clientV1.PingAsync(new PingRequest { Message = "hello from client" });
         _logger.LogInformation("Ping reply: {Message}", reply.Message);
 
+        _logger.LogInformation("1.1) Ping v2...");
+        var replyV2 = await _clientV2.PingAsync(new CatalogService.Grpc.Contracts.V2.PingRequest
+        {
+            Message = "hello from client",
+            CorrelationId = Guid.NewGuid().ToString("N")
+        });
+        _logger.LogInformation("Ping v2 reply: {Message}; corr={Corr}; code={Code}",
+            replyV2.Message, replyV2.CorrelationId, replyV2.Code);
+
         _logger.LogInformation("2) Server streaming: WatchCatalog...");
-        using (var call = _client.WatchCatalog(new WatchCatalogRequest { IntervalMs = 300, MaxUpdates = 5 }))
+        using (var call = _clientV1.WatchCatalog(new WatchCatalogRequest { IntervalMs = 300, MaxUpdates = 5 }))
         {
             await foreach (var update in call.ResponseStream.ReadAllAsync())
             {
@@ -69,7 +91,7 @@ public sealed class App
         }
 
         _logger.LogInformation("3) Client streaming: UploadCatalogEvents...");
-        using (var call = _client.UploadCatalogEvents())
+        using (var call = _clientV1.UploadCatalogEvents())
         {
             for (var i = 1; i <= 5; i++)
             {
@@ -88,7 +110,7 @@ public sealed class App
         }
 
         _logger.LogInformation("4) Bidirectional streaming: Chat...");
-        using (var call = _client.Chat())
+        using (var call = _clientV1.Chat())
         {
             var readTask = Task.Run(async () =>
             {

@@ -30,6 +30,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{8E8E2ACA-D833-
 		proto\catalog\v1\catalog.proto = proto\catalog\v1\catalog.proto
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v2", "v2", "{00C6CC8B-694D-430C-BAD3-84E05559BA10}"
+	ProjectSection(SolutionItems) = preProject
+		proto\catalog\v2\catalog.proto = proto\catalog\v2\catalog.proto
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +117,7 @@ Global
 		{47DD9F50-4551-49E9-A929-A627E6E4C0CE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{1E4C86C6-55F3-4D49-A47E-CDE67BB7467C} = {D3FA2AD1-4233-4D95-A582-B3F04FBA5002}
 		{8E8E2ACA-D833-4B88-9F6F-64807DB53F7F} = {1E4C86C6-55F3-4D49-A47E-CDE67BB7467C}
+		{00C6CC8B-694D-430C-BAD3-84E05559BA10} = {1E4C86C6-55F3-4D49-A47E-CDE67BB7467C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE444AFD-5992-489B-8D2C-5E7792E20CB8}
