@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto", "proto", "{A759B4FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{527C3A6B-3EAC-408F-B668-9249FE60FD0D}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
