@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option csharp_namespace = "CatalogService.Grpc.Contracts.V1";
+
+package catalog.v1;
+
+service CatalogApi {
+  rpc Ping (PingRequest) returns (PingResponse);
+
+  // 1) Server streaming: server sends updates
+  rpc WatchCatalog (WatchCatalogRequest) returns (stream CatalogUpdate);
+
+  // 2) Client streaming: client sends a stream, server returns summary
+  rpc UploadCatalogEvents (stream CatalogEvent) returns (UploadSummary);
+
+  // 3) Bidirectional streaming
+  rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+}
+
+message PingRequest {
+  string message = 1;
+}
+
+message PingResponse {
+  string message = 1;
+  int64 server_time_unix_ms = 2;
+}
+
+message WatchCatalogRequest {
+  int32 interval_ms = 1;   // recommended 200..2000
+  int32 max_updates = 2;   // safety limit
+}
+
+message CatalogUpdate {
+  int64 sequence = 1;
+  string text = 2;
+  int64 server_time_unix_ms = 3;
+}
+
+message CatalogEvent {
+  string event_id = 1;
+  string type = 2;         // e.g. "ProductCreated"
+  string payload_json = 3; // for demo
+  int64 client_time_unix_ms = 4;
+}
+
+message UploadSummary {
+  int32 received_count = 1;
+  int64 server_time_unix_ms = 2;
+}
+
+message ChatMessage {
+  string sender = 1;
+  string text = 2;
+  int64 time_unix_ms = 3;
+}

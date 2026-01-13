@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.1.11312.151 d18.0
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
@@ -13,14 +13,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "src\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{F69274F2-928D-433F-A770-FB35AC76ACE9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E205A0CA-3238-4E9F-B4C2-339549A5B6AE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto", "proto", "{A759B4FD-7691-4913-B61E-A8FBD8C49786}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{527C3A6B-3EAC-408F-B668-9249FE60FD0D}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Client", "src\CatalogService.Client\CatalogService.Client.csproj", "{47DD9F50-4551-49E9-A929-A627E6E4C0CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto", "proto", "{D3FA2AD1-4233-4D95-A582-B3F04FBA5002}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalog", "catalog", "{1E4C86C6-55F3-4D49-A47E-CDE67BB7467C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{8E8E2ACA-D833-4B88-9F6F-64807DB53F7F}"
+	ProjectSection(SolutionItems) = preProject
+		proto\catalog\v1\catalog.proto = proto\catalog\v1\catalog.proto
 	EndProjectSection
 EndProject
 Global
@@ -81,6 +88,18 @@ Global
 		{F69274F2-928D-433F-A770-FB35AC76ACE9}.Release|x64.Build.0 = Release|Any CPU
 		{F69274F2-928D-433F-A770-FB35AC76ACE9}.Release|x86.ActiveCfg = Release|Any CPU
 		{F69274F2-928D-433F-A770-FB35AC76ACE9}.Release|x86.Build.0 = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|x64.Build.0 = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +109,9 @@ Global
 		{79F86503-A808-490C-812A-5464876E500E} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{27171722-1471-4E10-905D-1DDABCBE56D3} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{F69274F2-928D-433F-A770-FB35AC76ACE9} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{47DD9F50-4551-49E9-A929-A627E6E4C0CE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{1E4C86C6-55F3-4D49-A47E-CDE67BB7467C} = {D3FA2AD1-4233-4D95-A582-B3F04FBA5002}
+		{8E8E2ACA-D833-4B88-9F6F-64807DB53F7F} = {1E4C86C6-55F3-4D49-A47E-CDE67BB7467C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE444AFD-5992-489B-8D2C-5E7792E20CB8}
