@@ -33,23 +33,4 @@
 		<ProjectReference Include="..\..\src\CatalogService.Grpc\CatalogService.Grpc.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<None Update="xunit.runner.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-
-
-	<Target Name="CopyTestHostDepsJson" AfterTargets="Build">
-		<ItemGroup>
-			<_TestHostDeps Include="$(NuGetPackageRoot)microsoft.testplatform.testhost\**\testhost.deps.json" />
-		</ItemGroup>
-		<Message Importance="High" Text="Copying testhost.deps.json to $(OutDir)" />
-		<Copy SourceFiles="@(_TestHostDeps)"
-			  DestinationFolder="$(OutDir)"
-			  SkipUnchangedFiles="true"
-			  Condition="'@(_TestHostDeps)' != ''" />
-	</Target>
-
 </Project>
