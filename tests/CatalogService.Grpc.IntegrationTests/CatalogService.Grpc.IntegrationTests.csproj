@@ -7,22 +7,21 @@
 
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="coverlet.collector" Version="6.0.4">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Grpc.Tools" Version="2.76.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="FluentAssertions" Version="8.8.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.23" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
@@ -33,11 +32,24 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\CatalogService.Grpc\CatalogService.Grpc.csproj" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<Protobuf Include="..\..\proto\catalog\v1\catalog.proto" ProtoRoot="..\..\proto" GrpcServices="Client" />
 
-		<Protobuf Include="..\..\proto\catalog\v2\catalog.proto" ProtoRoot="..\..\proto" GrpcServices="Client" />
+	<ItemGroup>
+		<None Update="xunit.runner.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
+
+
+
+	<Target Name="CopyTestHostDepsJson" AfterTargets="Build">
+		<ItemGroup>
+			<_TestHostDeps Include="$(NuGetPackageRoot)microsoft.testplatform.testhost\**\testhost.deps.json" />
+		</ItemGroup>
+		<Message Importance="High" Text="Copying testhost.deps.json to $(OutDir)" />
+		<Copy SourceFiles="@(_TestHostDeps)"
+			  DestinationFolder="$(OutDir)"
+			  SkipUnchangedFiles="true"
+			  Condition="'@(_TestHostDeps)' != ''" />
+	</Target>
 
 </Project>

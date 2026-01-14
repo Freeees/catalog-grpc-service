@@ -9,10 +9,10 @@
 	<ItemGroup>
 		<Protobuf Include="..\..\proto\catalog\v1\catalog.proto"            
 				  ProtoRoot="..\..\proto"            
-				  GrpcServices="Server" />
+				  GrpcServices="Both" />
 		<Protobuf Include="..\..\proto\catalog\v2\catalog.proto"            
 				  ProtoRoot="..\..\proto"            
-				  GrpcServices="Server" />
+				  GrpcServices="Both" />
 	</ItemGroup>
 
 	<ItemGroup>
