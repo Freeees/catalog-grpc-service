@@ -1,5 +1,5 @@
 # catalog-grpc-service
-![CI](https://github.com/<OWNER>/catalog-grpc-service/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Freeees/catalog-grpc-service/actions/workflows/ci.yml/badge.svg)
 ![.NET](https://img.shields.io/badge/.NET-8.0-blue)
 
 Portfolio project demonstrating **gRPC communication between services** on **.NET 8** with:
