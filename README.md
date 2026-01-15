@@ -130,6 +130,20 @@ dotnet test .\tests\CatalogService.Grpc.IntegrationTests\CatalogService.Grpc.Int
 
 ---
 
+## CI / Quality Gates
+
+This repository uses **GitHub Actions** for Continuous Integration.
+
+- Every push and pull request triggers a CI pipeline
+- The pipeline runs:
+  - `dotnet build` (Release)
+  - `dotnet test` (integration tests included)
+- The `main` branch is protected:
+  - **All required status checks must pass before merge**
+  - Broken builds or failing tests cannot be merged
+
+This ensures that the `main` branch always remains in a buildable and tested state.
+
 ## What This Project Demonstrates
 
 - Designing gRPC services with all streaming modes
