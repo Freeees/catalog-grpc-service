@@ -18,7 +18,7 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices((context, services) =>
     {
-        var grpcAddress = context.Configuration["Grpc:CatalogServiceAddress"] ?? "https://localhost:7090";
+        var grpcAddress = context.Configuration["Grpc:CatalogServiceAddress"] ?? "http://localhost:5144";
 
         var retryPolicy = HttpPolicyExtensions
             .HandleTransientHttpError()

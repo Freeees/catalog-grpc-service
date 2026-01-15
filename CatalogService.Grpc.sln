@@ -15,6 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{527C3A6B-3EAC-408F-B668-9249FE60FD0D}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
 		global.json = global.json
 		README.md = README.md
 	EndProjectSection

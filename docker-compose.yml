@@ -1,0 +1,9 @@
+services:
+  catalog-grpc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5144:5144"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
